@@ -22,7 +22,7 @@ app.use(hostRouter);
 
 app.use(express.static(path.join(rootDir,'public')));
 
-app.use(errorsController.pagenotfound);
+app.use(errorsController.pagenotfound); 
 const port = 3000;
 
 app.listen(port,()=>{
