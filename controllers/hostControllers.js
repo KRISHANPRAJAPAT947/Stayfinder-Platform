@@ -1,22 +1,22 @@
-const {Home} = require('../models/home');
+const Home = require('../models/home');
 
-exports.getAddhome = (req,res,next)=>{
+exports.getAddHome = (req,res,next)=>{
   
-  res.render('host/addhome',{pageTitle:'Add Home'});
+  res.render('host/addhome',{pageTitle:'Add Home',currentPage:'addhome'});
 };
 
 
 exports.getHostHomes = (req,res,next)=>{
   
   Home.fetchAll((registeredhomes) =>
-   {res.render('host/host-home-list',{homes:registeredhomes});}
+   {res.render('host/host-home-list',{ registeredHomes:registeredhomes, currentPage: 'host-homes'});}
   );
   
 };
 
-exports.postHome = (req,res,next)=>{
+exports.postAddHome = (req,res,next)=>{
   console.log(req.body);
-  res.render('host/homeadded',{pageTitle:'Home Added'});
+  res.render('host/home-added',{pageTitle:'Home Added', currentPage: 'homeadded'});
 
   const home = new Home(req.body.hauseName , req.body.price , req.body.location , req.body.rating , req.body.image);
   home.save();
