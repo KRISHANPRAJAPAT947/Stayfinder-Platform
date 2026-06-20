@@ -1,12 +1,14 @@
 const express = require('express');
 const path = require('path');
-const homesController = require('../controllers/homes');
+const hostControllers = require('../controllers/hostControllers');
 
 const hostRouter  = express.Router();
 const rootDir = require('../utils/pathUtil');
 
-hostRouter.get("/host/add-home" , homesController.getAddhome);
+hostRouter.get("/host/add-home" , hostControllers.getAddhome);
 
-hostRouter.post("/host/add-home" , homesController.postHome);
+hostRouter.post("/host/add-home" , hostControllers.postHome);
 
-exports.hostRouter = hostRouter;
+hostRouter.post("/host/host-home-list" , hostControllers.getHostHomes);
+
+module.exports = hostRouter;
