@@ -9,6 +9,6 @@ hostRouter.get("/host/add-home" , hostControllers.getAddHome);
 
 hostRouter.post("/host/add-home" , hostControllers.postAddHome);
 
-hostRouter.post("/host/host-home-list" , hostControllers.getHostHomes);
+hostRouter.get("/host/host-home-list", hostControllers.getHostHomes);
 
 module.exports = hostRouter;
