@@ -9,5 +9,6 @@ storeRouter.get("/" ,storeController.getIndex);
 storeRouter.get("/favourites" ,storeController.getFavouriteList);
 storeRouter.get("/homes/:homeId" ,storeController.getHomeDetails);
 storeRouter.post("/favourites" ,storeController.postAddToFavourite);
+storeRouter.post("/favourites/delete/:homeId" ,storeController.postDeleteFromFavourite);
 
 module.exports = storeRouter; 

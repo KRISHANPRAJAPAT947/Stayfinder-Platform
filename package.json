@@ -21,6 +21,8 @@
     "body-parser": "^2.2.2",
     "ejs": "^5.0.2",
     "express": "^5.2.1",
+    "mongodb": "^7.4.0",
+    "mysql2": "^3.22.5",
     "postcss": "^8.5.9",
     "tailwindcss": "^4.2.2"
   },

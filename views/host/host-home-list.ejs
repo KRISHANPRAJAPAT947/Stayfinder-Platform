@@ -22,8 +22,11 @@
                   <span class="text-gray-700"><%= home.rating %></span>
                 </div>
               </div>
-              <button class="bg-blue-500 p-2">Edit</button>
-              <button class="bg-red-500 p-2">Delete</button>
+              <a class="bg-blue-500 p-2 text-white" href="/host/edit-home/<%= home._id %>?editing=true" ">Edit</a>
+              <form action="/host/delete-home/<%= home._id %>" method="POST" class="inline">
+                <button type="submit" class="bg-red-500 p-2 text-white ml-2">Delete</button>
+              </form>
+
             </div>
           </div>
         <% }) %>
