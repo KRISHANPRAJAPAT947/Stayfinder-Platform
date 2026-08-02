@@ -17,11 +17,15 @@
   "type": "commonjs",
   "dependencies": {
     "@tailwindcss/cli": "^4.2.2",
+    "@types/express-session": "^1.19.0",
     "autoprefixer": "^10.5.0",
     "body-parser": "^2.2.2",
+    "connect-mongodb-session": "^5.0.0",
     "ejs": "^5.0.2",
     "express": "^5.2.1",
+    "express-session": "^1.19.0",
     "mongodb": "^7.4.0",
+    "mongoose": "^9.7.3",
     "mysql2": "^3.22.5",
     "postcss": "^8.5.9",
     "tailwindcss": "^4.2.2"

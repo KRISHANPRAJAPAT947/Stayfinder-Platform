@@ -2,7 +2,9 @@ const Home = require('../models/home');
 
 exports.getAddHome = (req,res,next)=>{
   
-  res.render('host/edit-home',{pageTitle:'Add Home',currentPage:'addhome',editing: false});
+  res.render('host/edit-home',{pageTitle:'Add Home',currentPage:'addhome',editing: false,
+    isLoggedIn: req.isLoggedIn
+  });
 };
 
 exports.getEditHome = (req,res,next)=>{ 
@@ -16,26 +18,28 @@ exports.getEditHome = (req,res,next)=>{
       pageTitle: 'Edit Home',
       currentPage: 'host-homes',
       editing: editing,
-      home: home 
+      home: home,
+      isLoggedIn: req.isLoggedIn
     });
   });
 };
 
 
 exports.getHostHomes = (req, res, next) => {
-  Home.fetchAll().then(registeredHomes =>
+  Home.find().then(registeredHomes =>
     res.render("host/host-home-list", {
       registeredHomes: registeredHomes,
       pageTitle: "Host Homes List",
       currentPage: "host-homes",
+      isLoggedIn: req.isLoggedIn
     })
   );
 };
 
 exports.postAddHome = (req,res,next)=>{
-  res.render('host/home-added',{pageTitle:'Home Added', currentPage: 'homeadded'});
-
-  const home = new Home(req.body.houseName , req.body.price , req.body.location , req.body.rating , req.body.photoUrl, req.body.description); 
+  res.render('host/home-added',{pageTitle:'Home Added', currentPage: 'homeadded', isLoggedIn: req.isLoggedIn});
+  const {houseName , price , location , rating ,photoUrl,description} = req.body;
+  const home = new Home({houseName , price , location , rating ,photoUrl,description}); 
   home.save().then(()=>{
     console.log('home added successfully');
   });
@@ -43,16 +47,31 @@ exports.postAddHome = (req,res,next)=>{
 };
 
 exports.postEditHome = (req,res,next)=>{
-  const home = new Home(req.body.houseName , req.body.price , req.body.location , req.body.rating , req.body.photoUrl, req.body.description,req.body.id);
-   home.save().then(()=>{
-    console.log('home added successfully');
-  });
-  res.redirect('/host/host-home-list');
+  const {houseName , price ,location , rating ,photoUrl,description,id}=req.body;
+  
+  Home.findById(id).then((home)=>{
+    home.houseName=houseName;
+    home.rating = rating;
+    home.location=location;
+    home.price=price;
+    home.photoUrl=photoUrl;
+    home.description=description;
+    home.save().then((result)=>{
+      console.log('home updated',home);
+    }).catch((err)=>{
+      console.log('error while podt edit home ', err);
+    })
+    res.redirect('/host/host-home-list');
+  }).catch((err)=>{
+    console.log(' valid id not found ',err);
+    res.redirect('/host/host-home-list');
+  })
+  
 };
 
 exports.postDeleteHome = (req,res,next)=>{
   const homeId = req.params.homeId;
-  Home.deleteById(homeId).then(() => {
+  Home.findByIdAndDelete(homeId).then(() => {
     res.redirect('/host/host-home-list');
   }).catch(err => {
     console.log("Error while deleting home: ", err);
