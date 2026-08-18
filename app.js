@@ -19,7 +19,7 @@ app.set('view engine', 'ejs');
 app.set('views','views');
 
 const store = new MongoDbStore({
-  url: DB_PATH,
+  uri: DB_PATH,
   collection: 'sessions'
 });
 

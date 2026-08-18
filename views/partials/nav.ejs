@@ -44,13 +44,21 @@
         >
       </li>
       <% } %>
-      <li>
+      
         <% if(!isLoggedIn) { %>
+        <li>
+        <a
+          href="/SignUp"
+          class="<%= currentPage === 'Login' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
+          >SignUp</a>
+          </li>
+        <li>
         <a
           href="/login"
           class="<%= currentPage === 'Login' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
-          >Login</a
-        >
+          >Login</a>
+          </li>
+
         <% } else { %>
           <form action="/logout" method="POST">
             <button
