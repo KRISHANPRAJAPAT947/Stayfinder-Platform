@@ -1,75 +1,51 @@
-<header class="bg-red-500 text-white p-4 shadow-md">
-  <nav class="container mx-auto flex justify-between items-center">
-    <ul class="flex space-x-4">
-      <li>
-        <a
-          href="/"
-          class="<%= currentPage === 'index' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
-          >airbnb</a>
-      </li>
-      <% if(isLoggedIn) { %>
-      <li>
-        <a
-          href="/homes"
-          class="<%= currentPage === 'Home' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
-          >Homes-List</a
-        >
-      </li>
-      <li>
-        <a
-          href="/favourites"
-          class="<%= currentPage === 'favourites' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
-          >Favourites</a
-        >
-      </li>
-      <li>
-        <a
-          href="/bookings"
-          class="<%= currentPage === 'bookings' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
-          >Bookings</a
-        >
-      </li>
-      <li>
-        <a
-          href="/host/host-home-list"
-          class="<%= currentPage === 'host-homes' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
-          >Host Homes</a
-        >
-      </li>
-      <li>
-        <a
-          href="/host/add-home"
-          class="<%= currentPage === 'addHome' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
-          >Add Home</a
-        >
-      </li>
-      <% } %>
-      
-        <% if(!isLoggedIn) { %>
-        <li>
-        <a
-          href="/SignUp"
-          class="<%= currentPage === 'Login' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
-          >SignUp</a>
-          </li>
-        <li>
-        <a
-          href="/login"
-          class="<%= currentPage === 'Login' ? 'bg-red-400' : 'hover:bg-red-400' %> py-2 px-4 rounded transition duration-300"
-          >Login</a>
-          </li>
+<header class="border-b border-rose-100 bg-white/95 text-slate-800 shadow-sm backdrop-blur">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8" aria-label="Main navigation">
+    <a href="/" class="flex items-center gap-2.5 rounded-xl text-lg font-bold tracking-tight text-slate-900 transition hover:text-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-100">
+      <span class="grid h-9 w-9 place-items-center rounded-xl bg-rose-500 text-xl leading-none text-white shadow-md shadow-rose-500/25">⌂</span>
+      stayfinder
+    </a>
 
+    <div class="hidden items-center gap-1 lg:flex">
+      <% if (isLoggedIn) { %>
+        <a href="/homes" class="rounded-lg px-3 py-2 text-sm font-medium transition <%= currentPage === 'Home' ? 'bg-rose-50 text-rose-600' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' %>" <%= currentPage === 'Home' ? 'aria-current="page"' : '' %>>Explore stays</a>
+        <a href="/favourites" class="rounded-lg px-3 py-2 text-sm font-medium transition <%= currentPage === 'favourites' ? 'bg-rose-50 text-rose-600' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' %>" <%= currentPage === 'favourites' ? 'aria-current="page"' : '' %>>Favourites</a>
+        <a href="/bookings" class="rounded-lg px-3 py-2 text-sm font-medium transition <%= currentPage === 'bookings' ? 'bg-rose-50 text-rose-600' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' %>" <%= currentPage === 'bookings' ? 'aria-current="page"' : '' %>>Bookings</a>
+        <span class="mx-2 h-5 w-px bg-slate-200"></span>
+        <a href="/host/host-home-list" class="rounded-lg px-3 py-2 text-sm font-medium transition <%= currentPage === 'host-homes' ? 'bg-rose-50 text-rose-600' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' %>" <%= currentPage === 'host-homes' ? 'aria-current="page"' : '' %>>My homes</a>
+        <a href="/host/add-home" class="rounded-lg px-3 py-2 text-sm font-medium transition <%= currentPage === 'addhome' ? 'bg-rose-50 text-rose-600' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' %>" <%= currentPage === 'addhome' ? 'aria-current="page"' : '' %>>Add a home</a>
+      <% } %>
+    </div>
+
+    <div class="hidden items-center gap-3 lg:flex">
+      <% if (!isLoggedIn) { %>
+        <a href="/login" class="rounded-lg px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-slate-900">Log in</a>
+        <a href="/signup" class="rounded-lg bg-rose-500 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-rose-500/30 transition hover:bg-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-100">Sign up</a>
+      <% } else { %>
+        <form action="/logout" method="POST">
+          <button type="submit" class="rounded-lg border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-rose-200 hover:bg-rose-50 hover:text-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-100">Log out</button>
+        </form>
+      <% } %>
+    </div>
+
+    <details class="relative lg:hidden">
+      <summary class="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-lg border border-slate-200 text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-rose-100">
+        <span class="sr-only">Open navigation menu</span>
+        <svg aria-hidden="true" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+      </summary>
+      <div class="absolute right-0 top-12 z-50 w-64 rounded-2xl border border-slate-100 bg-white p-2 shadow-xl shadow-slate-900/10">
+        <% if (isLoggedIn) { %>
+          <a href="/homes" class="block rounded-xl px-4 py-3 text-sm font-medium <%= currentPage === 'Home' ? 'bg-rose-50 text-rose-600' : 'text-slate-700 hover:bg-slate-50' %>">Explore stays</a>
+          <a href="/favourites" class="block rounded-xl px-4 py-3 text-sm font-medium <%= currentPage === 'favourites' ? 'bg-rose-50 text-rose-600' : 'text-slate-700 hover:bg-slate-50' %>">Favourites</a>
+          <a href="/bookings" class="block rounded-xl px-4 py-3 text-sm font-medium <%= currentPage === 'bookings' ? 'bg-rose-50 text-rose-600' : 'text-slate-700 hover:bg-slate-50' %>">Bookings</a>
+          <div class="my-2 border-t border-slate-100"></div>
+          <a href="/host/host-home-list" class="block rounded-xl px-4 py-3 text-sm font-medium <%= currentPage === 'host-homes' ? 'bg-rose-50 text-rose-600' : 'text-slate-700 hover:bg-slate-50' %>">My homes</a>
+          <a href="/host/add-home" class="block rounded-xl px-4 py-3 text-sm font-medium <%= currentPage === 'addhome' ? 'bg-rose-50 text-rose-600' : 'text-slate-700 hover:bg-slate-50' %>">Add a home</a>
+          <form action="/logout" method="POST" class="mt-2 border-t border-slate-100 pt-2"><button type="submit" class="w-full rounded-xl px-4 py-3 text-left text-sm font-semibold text-slate-700 hover:bg-rose-50 hover:text-rose-600">Log out</button></form>
         <% } else { %>
-          <form action="/logout" method="POST">
-            <button
-              type="submit"
-              class="bg-red-400 hover:bg-red-400 text-white py-2 px-4 rounded transition duration-300"
-            >
-              Logout
-            </button>
-          </form>
+          <a href="/login" class="block rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50">Log in</a>
+          <a href="/signup" class="mt-1 block rounded-xl bg-rose-500 px-4 py-3 text-sm font-semibold text-white hover:bg-rose-600">Sign up</a>
         <% } %>
-      </li>
-    </ul>
+      </div>
+    </details>
   </nav>
 </header>

@@ -1,68 +1,96 @@
 <%- include('../partials/head') %>
-  </head>
-  <body>
-    <%- include('../partials/nav') %>
-    <main class="container mx-auto mt-8 p-8 bg-white rounded-lg shadow-md">
-      <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Register as a new user</h1>
-      
-      <form action="signup" method="POST" class="m ax-w-md mx-auto">
-        <% if (typeof errorMessages !== 'undefined' && errorMessages.length > 0) { %>
-          <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-            <% errorMessages.forEach((msg) => { %>
-              <li><%= msg %></li>
-            <% }); %>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-rose-50 via-white to-orange-50 text-slate-800">
+  <%- include('../partials/nav') %>
+
+  <main class="mx-auto flex w-full max-w-6xl items-center px-4 py-10 sm:px-6 lg:min-h-[calc(100vh-80px)] lg:px-8">
+    <section class="grid w-full overflow-hidden rounded-3xl bg-white shadow-2xl shadow-rose-900/10 lg:grid-cols-[.9fr_1.1fr]">
+      <aside class="relative hidden overflow-hidden bg-rose-500 p-12 text-white lg:block">
+        <div class="absolute -right-20 -top-16 h-64 w-64 rounded-full bg-white/10"></div>
+        <div class="absolute -bottom-24 -left-16 h-72 w-72 rounded-full border-[28px] border-white/10"></div>
+        <div class="relative flex h-full flex-col justify-between">
+          <a href="/" class="inline-flex w-fit items-center gap-2 text-lg font-bold tracking-tight">
+            <span class="grid h-9 w-9 place-items-center rounded-xl bg-white text-rose-500">⌂</span>
+            stayfinder
+          </a>
+          <div>
+            <p class="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-rose-100">Find your place</p>
+            <h1 class="max-w-sm text-4xl font-bold leading-tight">A world of stays is waiting for you.</h1>
+            <p class="mt-5 max-w-sm text-base leading-7 text-rose-100">Create an account to save favourites, make bookings, and start hosting memorable stays.</p>
           </div>
-        <% } %>
+          <p class="text-sm text-rose-100">Your next great stay starts here.</p>
+        </div>
+      </aside>
 
+      <div class="px-5 py-8 sm:px-10 sm:py-10 lg:px-14">
+        <div class="mx-auto max-w-xl">
+          <div class="mb-8">
+            <p class="mb-2 text-sm font-semibold text-rose-500 lg:hidden">STAYFINDER</p>
+            <h2 class="text-3xl font-bold tracking-tight text-slate-900">Create your account</h2>
+            <p class="mt-2 text-sm text-slate-500">Join us and make every trip feel like home.</p>
+          </div>
 
+          <% if (typeof errorMessages !== 'undefined' && errorMessages.length > 0) { %>
+            <div role="alert" class="mb-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+              <p class="font-semibold">Please fix the following:</p>
+              <ul class="mt-2 list-disc space-y-1 pl-5"><% errorMessages.forEach((msg) => { %><li><%= msg %></li><% }); %></ul>
+            </div>
+          <% } %>
 
+          <form action="/signup" method="POST" class="space-y-5">
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label for="firstName" class="mb-2 block text-sm font-medium text-slate-700">First name</label>
+                <input id="firstName" type="text" name="firstName" autocomplete="given-name" value="<%= oldInput.firstName || '' %>" placeholder="First name" required class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-rose-500 focus:bg-white focus:ring-4 focus:ring-rose-100" />
+              </div>
+              <div>
+                <label for="lastName" class="mb-2 block text-sm font-medium text-slate-700">Last name</label>
+                <input id="lastName" type="text" name="lastName" autocomplete="family-name" value="<%= oldInput.lastName || '' %>" placeholder="Last name" required class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-rose-500 focus:bg-white focus:ring-4 focus:ring-rose-100" />
+              </div>
+            </div>
 
-        <input
-          type="text"
-          name="firstName"
-          placeholder="Firstname"
-          value="<%=oldInput.firstName ? oldInput.firstName : '' %>"
-          class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required/>
-        <input
-          type="text"
-          name="lastName"
-          placeholder="Lastname"
-          value="<%=oldInput.lastName ? oldInput.lastName : '' %>"
-          class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required/>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value="<%=oldInput.email ? oldInput.email : '' %>"
-          class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required/>
-        
-        <input
-          type="password"
-          name="password"
-          placeholder="password"
-          value="<%=oldInput.password ? oldInput.password : '' %>"
-          class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required/>
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="enter your Password again"
-          class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required/>
-        <label>
-          <input type="radio" name="userType" value="guest" id="guest" checked/><span>Guest</span> 
-        </label>
-        <label>
-          <input type="radio" name="userType" value="host" id="host" checked/><span>host</span> 
-        </label>
+            <div>
+              <label for="email" class="mb-2 block text-sm font-medium text-slate-700">Email address</label>
+              <input id="email" type="email" name="email" autocomplete="email" value="<%= oldInput.email || '' %>" placeholder="you@example.com" required class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-rose-500 focus:bg-white focus:ring-4 focus:ring-rose-100" />
+            </div>
 
-        <br/>
-        <input type="checkbox" name="terms" id="terms" required/>
-        <label for="terms">I agree to this term and conditions </label>
-        <input
-          type="submit"
-          value="Register"
-          class="w-full bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition duration-300"/>
-      </form>
-    </main>
-  </body>
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label for="password" class="mb-2 block text-sm font-medium text-slate-700">Password</label>
+                <input id="password" type="password" name="password" autocomplete="new-password" placeholder="Create a password" required class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-rose-500 focus:bg-white focus:ring-4 focus:ring-rose-100" />
+              </div>
+              <div>
+                <label for="confirmPassword" class="mb-2 block text-sm font-medium text-slate-700">Confirm password</label>
+                <input id="confirmPassword" type="password" name="confirmPassword" autocomplete="new-password" placeholder="Repeat your password" required class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-rose-500 focus:bg-white focus:ring-4 focus:ring-rose-100" />
+              </div>
+            </div>
+
+            <fieldset>
+              <legend class="mb-3 text-sm font-medium text-slate-700">How will you use stayfinder?</legend>
+              <div class="grid gap-3 sm:grid-cols-2">
+                <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 p-4 transition hover:border-rose-300 has-[:checked]:border-rose-500 has-[:checked]:bg-rose-50">
+                  <input type="radio" name="userType" value="guest" <%= !oldInput.userType || oldInput.userType === 'guest' ? 'checked' : '' %> class="h-4 w-4 border-slate-300 text-rose-500 focus:ring-rose-500" />
+                  <span><span class="block text-sm font-semibold text-slate-800">Guest</span><span class="text-xs text-slate-500">Book beautiful stays</span></span>
+                </label>
+                <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 p-4 transition hover:border-rose-300 has-[:checked]:border-rose-500 has-[:checked]:bg-rose-50">
+                  <input type="radio" name="userType" value="host" <%= oldInput.userType === 'host' ? 'checked' : '' %> class="h-4 w-4 border-slate-300 text-rose-500 focus:ring-rose-500" />
+                  <span><span class="block text-sm font-semibold text-slate-800">Host</span><span class="text-xs text-slate-500">Share your space</span></span>
+                </label>
+              </div>
+            </fieldset>
+
+            <label for="terms" class="flex cursor-pointer items-start gap-3 text-sm leading-5 text-slate-600">
+              <input id="terms" type="checkbox" name="terms" required class="mt-0.5 h-4 w-4 rounded border-slate-300 text-rose-500 focus:ring-rose-500" />
+              <span>I agree to the <a href="#" class="font-medium text-rose-600 hover:text-rose-700 hover:underline">Terms of Service</a> and <a href="#" class="font-medium text-rose-600 hover:text-rose-700 hover:underline">Privacy Policy</a>.</span>
+            </label>
+
+            <button type="submit" class="w-full rounded-xl bg-rose-500 px-4 py-3.5 text-sm font-semibold text-white shadow-lg shadow-rose-500/25 transition hover:bg-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-200">Create account</button>
+          </form>
+
+          <p class="mt-7 text-center text-sm text-slate-500">Already have an account? <a href="/login" class="font-semibold text-rose-600 hover:text-rose-700 hover:underline">Log in</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
 </html>
-        

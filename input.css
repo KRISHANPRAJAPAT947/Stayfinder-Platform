@@ -1,2 +1,33 @@
 @import "tailwindcss";
 @source "./views/**/*.ejs";
+
+/* Smooth same-page navigation and native cross-document transitions where supported. */
+html {
+  scroll-behavior: smooth;
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: 180ms ease-in both stayfinder-fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 260ms ease-out both stayfinder-fade-in;
+}
+
+@keyframes stayfinder-fade-out {
+  to { opacity: 0; transform: translateY(-4px); }
+}
+
+@keyframes stayfinder-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation: none; }
+}
