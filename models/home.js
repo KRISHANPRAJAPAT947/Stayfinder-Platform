@@ -12,10 +12,9 @@ const homeSchema = new mongoose.Schema({
 
 });
 
-homeSchema.pre('findOneAndDelete',async function(next){
+homeSchema.pre('findOneAndDelete', async function() {
   const homeId = this.getQuery()._id;
-  await favourite.deleteMny({houseId:homeId});
-  next();
+  await favourite.deleteMany({ houseId: homeId });
 });
 
 module.exports = mongoose.model('Home', homeSchema);

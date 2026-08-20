@@ -37,13 +37,21 @@ exports.getHostHomes = (req, res, next) => {
 };
 
 exports.postAddHome = (req,res,next)=>{
-  res.render('host/home-added',{pageTitle:'Home Added', currentPage: 'homeadded', isLoggedIn: req.isLoggedIn});
   const {houseName , price , location , rating ,photoUrl,description} = req.body;
-  const home = new Home({houseName , price , location , rating ,photoUrl,description}); 
-  home.save().then(()=>{
-    console.log('home added successfully');
+  const localImagePath = photoUrl.startsWith('images/') ? `/${photoUrl}` : photoUrl;
+
+  const home = new Home({
+    houseName,
+    price,
+    location,
+    rating,
+    photoUrl: localImagePath,
+    description
   });
-  res.redirect('/host/host-home-list');
+
+  home.save()
+    .then(() => res.redirect('/host/host-home-list'))
+    .catch(next);
 };
 
 exports.postEditHome = (req,res,next)=>{
