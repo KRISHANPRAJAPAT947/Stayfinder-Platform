@@ -6,30 +6,45 @@
       <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Register as a new user</h1>
       
       <form action="signup" method="POST" class="m ax-w-md mx-auto">
+        <% if (typeof errorMessages !== 'undefined' && errorMessages.length > 0) { %>
+          <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            <% errorMessages.forEach((msg) => { %>
+              <li><%= msg %></li>
+            <% }); %>
+          </div>
+        <% } %>
+
+
+
+
         <input
           type="text"
-          name="Firstname"
+          name="firstName"
           placeholder="Firstname"
+          value="<%=oldInput.firstName ? oldInput.firstName : '' %>"
           class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required/>
         <input
           type="text"
-          name="Lastname"
+          name="lastName"
           placeholder="Lastname"
+          value="<%=oldInput.lastName ? oldInput.lastName : '' %>"
           class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required/>
         <input
           type="email"
           name="email"
           placeholder="Email"
+          value="<%=oldInput.email ? oldInput.email : '' %>"
           class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required/>
         
         <input
-          type="text"
+          type="password"
           name="password"
           placeholder="password"
+          value="<%=oldInput.password ? oldInput.password : '' %>"
           class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required/>
         <input
           type="password"
-          name="confirm password"
+          name="confirmPassword"
           placeholder="enter your Password again"
           class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required/>
         <label>
