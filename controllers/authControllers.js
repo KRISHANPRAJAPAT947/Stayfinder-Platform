@@ -9,7 +9,13 @@ exports.getLogin = (req,res,next)=>{
 };
 
 exports.postLogin = (req,res,next)=>{
-  req.session.isLoggedIn = true;
+  const {email , password} = req.body ;
+  const isvalid = (User.findOne(email === email));
+  if(!isvalid){
+    
+  }
+
+
   res.redirect('/');
 };
 

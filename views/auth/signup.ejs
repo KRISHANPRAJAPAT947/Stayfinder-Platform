@@ -33,7 +33,11 @@
           <% if (typeof errorMessages !== 'undefined' && errorMessages.length > 0) { %>
             <div role="alert" class="mb-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
               <p class="font-semibold">Please fix the following:</p>
-              <ul class="mt-2 list-disc space-y-1 pl-5"><% errorMessages.forEach((msg) => { %><li><%= msg %></li><% }); %></ul>
+              <ul class="mt-2 list-disc space-y-1 pl-5">
+                <% errorMessages.forEach((msg) => { %>
+                  <li><%= msg %></li>
+                <% }); %>
+              </ul>
             </div>
           <% } %>
 
@@ -70,11 +74,17 @@
               <div class="grid gap-3 sm:grid-cols-2">
                 <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 p-4 transition hover:border-rose-300 has-[:checked]:border-rose-500 has-[:checked]:bg-rose-50">
                   <input type="radio" name="userType" value="guest" <%= !oldInput.userType || oldInput.userType === 'guest' ? 'checked' : '' %> class="h-4 w-4 border-slate-300 text-rose-500 focus:ring-rose-500" />
-                  <span><span class="block text-sm font-semibold text-slate-800">Guest</span><span class="text-xs text-slate-500">Book beautiful stays</span></span>
+                  <span>
+                    <span class="block text-sm font-semibold text-slate-800">Guest</span>
+                    <span class="text-xs text-slate-500">Book beautiful stays</span>
+                  </span>
                 </label>
                 <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 p-4 transition hover:border-rose-300 has-[:checked]:border-rose-500 has-[:checked]:bg-rose-50">
                   <input type="radio" name="userType" value="host" <%= oldInput.userType === 'host' ? 'checked' : '' %> class="h-4 w-4 border-slate-300 text-rose-500 focus:ring-rose-500" />
-                  <span><span class="block text-sm font-semibold text-slate-800">Host</span><span class="text-xs text-slate-500">Share your space</span></span>
+                  <span>
+                    <span class="block text-sm font-semibold text-slate-800">Host</span>
+                    <span class="text-xs text-slate-500">Share your space</span>
+                  </span>
                 </label>
               </div>
             </fieldset>
@@ -87,7 +97,10 @@
             <button type="submit" class="w-full rounded-xl bg-rose-500 px-4 py-3.5 text-sm font-semibold text-white shadow-lg shadow-rose-500/25 transition hover:bg-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-200">Create account</button>
           </form>
 
-          <p class="mt-7 text-center text-sm text-slate-500">Already have an account? <a href="/login" class="font-semibold text-rose-600 hover:text-rose-700 hover:underline">Log in</a></p>
+          <p class="mt-7 text-center text-sm text-slate-500">
+            Already have an account?
+            <a href="/login" class="font-semibold text-rose-600 hover:text-rose-700 hover:underline">Log in</a>
+          </p>
         </div>
       </div>
     </section>

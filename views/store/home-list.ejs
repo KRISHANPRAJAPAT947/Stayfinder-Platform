@@ -1,1 +1,35 @@
-<%- include('../partials/head') %></head><body class="flex min-h-screen flex-col bg-slate-50"><%- include('../partials/nav') %><main class="mx-auto w-full max-w-7xl flex-1 px-4 py-12 sm:px-6"><div class="mb-8"><p class="text-sm font-semibold uppercase tracking-[.16em] text-rose-500">Explore Stayfinder</p><h1 class="mt-2 text-3xl font-bold text-slate-900">Find your next stay</h1></div><div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"><% registeredHomes.forEach(home => { %><article class="overflow-hidden rounded-2xl bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"><img src="<%= home.photoUrl %>" alt="<%= home.houseName %>" class="h-56 w-full object-cover"/><div class="p-5"><p class="text-sm text-slate-500"><%= home.location %></p><h2 class="mt-1 text-xl font-bold text-slate-900"><%= home.houseName %></h2><div class="mt-4 flex items-center justify-between"><span class="font-semibold text-slate-900">Rs <%= home.price %> <small class="font-normal text-slate-500">/ night</small></span><span class="text-sm text-amber-500">★ <%= home.rating %></span></div><div class="mt-5 flex items-center justify-between"><a href="/homes/<%= home._id %>" class="rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white hover:bg-rose-500">View stay</a><%- include('../partials/favourite', { home: home }) %></div></div></article><% }) %></div></main><%- include('../partials/footer') %></body></html>
+<%- include('../partials/head') %>
+</head>
+<body class="flex min-h-screen flex-col bg-slate-50">
+  <%- include('../partials/nav') %>
+
+  <main class="mx-auto w-full max-w-7xl flex-1 px-4 py-12 sm:px-6">
+    <div class="mb-8">
+      <p class="text-sm font-semibold uppercase tracking-[.16em] text-rose-500">Explore Stayfinder</p>
+      <h1 class="mt-2 text-3xl font-bold text-slate-900">Find your next stay</h1>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <% registeredHomes.forEach(home => { %>
+        <article class="overflow-hidden rounded-2xl bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+          <img src="<%= home.photoUrl %>" alt="<%= home.houseName %>" class="h-56 w-full object-cover" />
+          <div class="p-5">
+            <p class="text-sm text-slate-500"><%= home.location %></p>
+            <h2 class="mt-1 text-xl font-bold text-slate-900"><%= home.houseName %></h2>
+            <div class="mt-4 flex items-center justify-between">
+              <span class="font-semibold text-slate-900">Rs <%= home.price %> <small class="font-normal text-slate-500">/ night</small></span>
+              <span class="text-sm text-amber-500">★ <%= home.rating %></span>
+            </div>
+            <div class="mt-5 flex items-center justify-between">
+              <a href="/homes/<%= home._id %>" class="rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white hover:bg-rose-500">View stay</a>
+              <%- include('../partials/favourite', { home: home }) %>
+            </div>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>
