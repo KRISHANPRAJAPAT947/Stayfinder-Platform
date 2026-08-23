@@ -36,19 +36,22 @@ app.use(session({
   saveUninitialized: true,
   store: store
 }));
-app.use((req,res,next)=>{
-  req.isLoggedIn = req.session.isLoggedIn ;
+
+app.use((req, res, next) => {
+  req.isLoggedIn = Boolean(req.session.isLoggedIn);
+  res.locals.isLoggedIn = req.isLoggedIn;
+  res.locals.user = req.session.user || null;
   next();
 });
+
 app.use(storeRouter);
-app.use(hostRouter);
-app.use("/host",(req,res,next)=>{
-  if(req.isLoggedIn){
-    next();
-  }else{
-    res.redirect('/auth/login');
+app.use('/host', (req, res, next) => {
+  if (req.isLoggedIn && req.session.user?.userType === 'host') {
+    return next();
   }
+  return res.redirect(req.isLoggedIn ? '/' : '/login');
 });
+app.use(hostRouter);
 app.use(authRouter);
 app.use(errorsController.pagenotfound); 
 const port = 3000;
@@ -62,4 +65,3 @@ mongoose.connect(DB_PATH).then(()=>{
 }).catch((err)=>{
   console.log("Error connecting to database", err); 
 });
-

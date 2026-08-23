@@ -4,19 +4,62 @@ const bcrypt = require('bcryptjs');
 
 exports.getLogin = (req,res,next)=>{
   res.render('auth/login', { pageTitle: 'Login', currentPage: 'login',
-    isLoggedIn: false
+    errorMessages: [], oldInput: { email: '' },
+    user: {}, isLoggedIn: req.isLoggedIn
    });
 };
 
-exports.postLogin = (req,res,next)=>{
-  const {email , password} = req.body ;
-  const isvalid = (User.findOne(email === email));
-  if(!isvalid){
-    
-  }
+exports.postLogin = async (req,res,next)=>{
+  const {email, password} = req.body;
 
+  await User.findOne({email})
+  .then(async user=>{
+    if(!user){
+      return res.status(422).render('auth/login', {
+        pageTitle: 'Login',
+        currentPage: 'login',
+        isLoggedIn: req.isLoggedIn,
+        errorMessages: ['Invalid email or password'],
+        oldInput: { email },
+        user: {},
+      });
+    }
 
-  res.redirect('/');
+    await bcrypt.compare(password, user.password)
+    .then(async doMatch=>{
+      if(doMatch){
+        req.session.isLoggedIn = true;
+        req.session.user = {
+          id: user._id.toString(),
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          userType: user.userType
+        };
+        return req.session.save(err => {
+          if (err) {
+            return next(err);
+          }
+          return res.redirect('/');
+        });
+      }
+      return res.status(422).render('auth/login', {
+        pageTitle: 'Login',
+        currentPage: 'login',
+        isLoggedIn: req.isLoggedIn,
+        errorMessages: ['Invalid email or password'],
+        oldInput : {email},
+        user: {},
+      });
+    })
+    .catch(err=>{
+      console.log(err);
+      res.redirect('/login');
+    });
+  })
+  .catch(err=>{
+    console.log(err);
+  });
 };
 
 exports.postLogout = (req,res,next)=>{
@@ -31,9 +74,10 @@ exports.getSignUp = (req,res,next)=>{
   res.render('auth/signup', {
      pageTitle: 'SignUp',
       currentPage: 'signup',
-      isLoggedIn: false,
+      isLoggedIn: req.isLoggedIn,
       errorMessages: [],
-      oldInput: { firstName: '', lastName: '', email: '', password: '', userType: '' }
+      oldInput: { firstName: '', lastName: '', email: '', password: '', userType: '' },
+        user: {},
     })
 };
 
@@ -98,9 +142,10 @@ exports.postSignUp = [
     return res.status(422).render('auth/signup', {
       pageTitle: 'SignUp',
       currentPage: 'signup',
-      isLoggedIn: false,
+      isLoggedIn: req.isLoggedIn,
       errorMessages,
-      oldInput: { firstName, lastName, email,password, userType }
+      oldInput: { firstName, lastName, email,password, userType },
+        user: {},
     });
   }
 
@@ -124,12 +169,10 @@ exports.postSignUp = [
     return res.status(422).render('auth/signup', {
       pageTitle: 'SignUp',
       currentPage: 'signup',
-      isLoggedIn: false,
+      isLoggedIn: req.isLoggedIn,
       errorMessages: [err.message],
-      oldInput: { firstName, lastName, email,password, userType }
+      oldInput: { firstName, lastName, email,password, userType },
+        user: {},
     });
   });
 }];
-
-
-

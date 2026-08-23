@@ -3,7 +3,7 @@ const Home = require('../models/home');
 exports.getAddHome = (req,res,next)=>{
   
   res.render('host/edit-home',{pageTitle:'Add Home',currentPage:'addhome',editing: false,
-    isLoggedIn: req.isLoggedIn
+    isLoggedIn: req.isLoggedIn,user: req.session.user
   });
 };
 
@@ -19,7 +19,8 @@ exports.getEditHome = (req,res,next)=>{
       currentPage: 'host-homes',
       editing: editing,
       home: home,
-      isLoggedIn: req.isLoggedIn
+      isLoggedIn: req.isLoggedIn,
+      user: req.session.user
     });
   });
 };
@@ -31,7 +32,8 @@ exports.getHostHomes = (req, res, next) => {
       registeredHomes: registeredHomes,
       pageTitle: "Host Homes List",
       currentPage: "host-homes",
-      isLoggedIn: req.isLoggedIn
+      isLoggedIn: req.isLoggedIn,
+      user: req.session.user
     })
   );
 };

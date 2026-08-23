@@ -1,0 +1,10 @@
+<% if (typeof errorMessages !== 'undefined' && errorMessages.length > 0) { %>
+            <div role="alert" class="mb-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+              <p class="font-semibold">Please fix the following:</p>
+              <ul class="mt-2 list-disc space-y-1 pl-5">
+                <% errorMessages.forEach((msg) => { %>
+                  <li><%= msg %></li>
+                <% }); %>
+              </ul>
+            </div>
+          <% } %>
